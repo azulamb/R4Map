@@ -19,17 +19,17 @@ public class R4Map
 	}*/
 
 	private int w, h, bx, by, ex, ey, count;
-	private byte[][] chip;
+	private byte[][] map;
 	private Random rnd;
 
 	public R4Map( int w, int h )
 	{
 		this.w = w;
 		this.h = h;
-		chip = new byte[ h ][];
+		map = new byte[ h ][];
 		for ( int y = 0 ; y < h ; ++y )
 		{
-			chip[ y ] = new byte[ w ];
+			map[ y ] = new byte[ w ];
 		}
 		ex = 0;
 		ey = 0;
@@ -50,7 +50,7 @@ public class R4Map
 		int x, y;
 		bx = sx;
 		by = sy;
-		for ( y = 0 ; y < h ; ++y ){ for( x = 0 ; x < w ; ++x ){ chip[ y ][ x ] = 0; } }
+		for ( y = 0 ; y < h ; ++y ){ for( x = 0 ; x < w ; ++x ){ map[ y ][ x ] = 0; } }
 
 		byte[][] map = createLoadMap( sx, sy, baseLoadMap() );
 
@@ -63,10 +63,10 @@ public class R4Map
 			{
 				if ( map[ y * 2 + 1 ][ x * 2 + 1 ] == 0 )
 				{
-					chip[ y ][ x ] = 0;
+					this.map[ y ][ x ] = 0;
 				} else
 				{
-					chip[ y ][ x ] = (byte)( (map[ y * 2 + 1 ][ x * 2 ]*8) | (map[ y * 2 + 2 ][ x * 2 + 1 ]*4) | (map[ y * 2 + 1 ][ x * 2 + 2 ]*2) | (map[ y * 2 ][ x * 2 + 1 ]) );
+					this.map[ y ][ x ] = (byte)( (map[ y * 2 + 1 ][ x * 2 ]*8) | (map[ y * 2 + 2 ][ x * 2 + 1 ]*4) | (map[ y * 2 + 1 ][ x * 2 + 2 ]*2) | (map[ y * 2 ][ x * 2 + 1 ]) );
 				}
 				// Debug print.
 				//System.out.print( "[" + chip[ y ][ x ] + "]");
@@ -141,6 +141,7 @@ public class R4Map
 		return map;
 	}
 
+	public byte[][] getMap(){ return map; }
 	public int getBeginX(){ return bx; }
 	public int getBeginY(){ return by; }
 	public int getEndX(){ return ex; }
